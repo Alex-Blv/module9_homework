@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Задание 4</title>
+   <style>
+      .common {
+
+         text-align: center;
+         display: flex;
+         flex-direction: row;
+         flex-wrap: wrap;
+         align-content: center;
+         justify-content: center;
+         align-items: stretch;
+         width: 40vw;
+      }
+
+      div#output {
+         margin-top: 2rem;
+      }
+
+      .forms:nth-child(2) {
+         margin-left: 1rem;
+      }
+
+      .btn {
+         padding: 0;
+         background-color: transparent;
+         border: none;
+         outline: none;
+         -webkit-tap-highlight-color: transparent;
+         box-shadow: none;
+         cursor: pointer;
+         margin: 5px 10px;
+         padding: 10px 15px;
+         border-radius: 5px;
+         font-size: 12px;
+         line-height: 15px;
+         text-transform: uppercase;
+         color: white;
+         background: #fb3131;
+         transition: 0.3s;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="common">
+      <div class="forms">
+         <label for="input">Введите число</label><br>
+         <input type="number" id="input" class="form_1"></input>
+      </div>
+      <div class="forms">
+         <label for="input">Введите число</label><br>
+         <input type="number" id="input" class="form_2"></input>
+      </div>
+      <button type="submit" id="button" class="btn">Submit</button>
+      <div id="output">Здесь будет результат запроса</div>
+   </div>
+   <script>
+      let btn = document.querySelector('.btn');
+      let inpOne = document.querySelector('.form_1');
+      let inpTwo = document.querySelector('.form_2');
+      const outputNode = document.getElementById('output');
+
+      btn.addEventListener('click', () => {
+         let valueOne = +inpOne.value;
+         let valueTwo = +inpTwo.value;
+
+         if ((valueOne >= 100 && valueOne <= 300) && (valueTwo >= 100 && valueTwo <= 300)) {
+            fetch(`https://picsum.photos/${valueOne}/${valueTwo}`)
+               .then((response) => {
+                  outputNode.innerHTML = `<img src=${response.url}>`;
+               })
+               .catch(() => {
+                  outputNode.innerHTML = `An awfull error`;
+               })
+         } else {
+            outputNode.innerHTML = `Одно из чисел вне диапaзона от 100 до 300`;
+         }
+      });
+   </script>
+</body>
+
+</html>
